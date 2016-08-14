@@ -17,19 +17,19 @@ public class MainActivity extends Activity {
     private static final String TAG = "MainActivity";
     private static final int LOGIN_ACTIVITY_REQ_CODE = 1;
 
-    private TextView userEmail;
+    private TextView someText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        userEmail = (TextView) findViewById(R.id.user_email);
+        someText = (TextView) findViewById(R.id.some_text);
 
         if (savedInstanceState != null) {
-            String email = savedInstanceState.getString("USER_EMAIL");
+            String email = savedInstanceState.getString("SOME_TEXT");
             email = email + "(Activity re-created)";
-            userEmail.setText(email);
+            someText.setText(email);
         }
 
         Log.d(TAG, "onCreate");
@@ -67,7 +67,7 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putString("USER_EMAIL", userEmail.getText().toString().trim());
+        outState.putString("SOME_TEXT", someText.getText().toString().trim());
         super.onSaveInstanceState(outState);
     }
 

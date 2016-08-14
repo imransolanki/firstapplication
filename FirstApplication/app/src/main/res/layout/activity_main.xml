@@ -5,7 +5,7 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/user_email"
+        android:id="@+id/some_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Default text" />
