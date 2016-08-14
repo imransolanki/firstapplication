@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Created by imran on 6/8/16.
@@ -13,11 +15,23 @@ import android.view.View;
 public class MainActivity extends Activity {
 
     private static final String TAG = "MainActivity";
+    private static final int LOGIN_ACTIVITY_REQ_CODE = 1;
+
+    private TextView userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        userEmail = (TextView) findViewById(R.id.user_email);
+
+        if (savedInstanceState != null) {
+            String email = savedInstanceState.getString("USER_EMAIL");
+            email = email + "(Activity re-created)";
+            userEmail.setText(email);
+        }
+
         Log.d(TAG, "onCreate");
     }
 
@@ -51,12 +65,29 @@ public class MainActivity extends Activity {
         Log.d(TAG, "onDestroy");
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("USER_EMAIL", userEmail.getText().toString().trim());
+        super.onSaveInstanceState(outState);
+    }
+
     public void startActivityLogin(View view) {
         // code to start login activity
         Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
         // code to pass data to login activity
         loginActivity.putExtra("EXTRA_USER_EMAIL", "imran.solanki@gmail.com");
-        startActivity(loginActivity);
+        //startActivity(loginActivity);
+        startActivityForResult(loginActivity, LOGIN_ACTIVITY_REQ_CODE);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == LOGIN_ACTIVITY_REQ_CODE && resultCode == Activity.RESULT_OK) {
+            Toast.makeText(MainActivity.this, "Successful", Toast.LENGTH_SHORT).show();
+        }
+        if (requestCode == LOGIN_ACTIVITY_REQ_CODE && resultCode == Activity.RESULT_CANCELED) {
+            Toast.makeText(MainActivity.this, "Failure", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

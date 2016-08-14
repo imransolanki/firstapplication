@@ -3,6 +3,7 @@ package com.example.imran.firstapplication;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 
 public class LoginActivity extends Activity {
 
@@ -20,4 +21,10 @@ public class LoginActivity extends Activity {
             Log.d(TAG, "onCreate: userEmail=" + userEmail);
         }
     }
+
+    public void closeActivity(View view) {
+        setResult(Activity.RESULT_CANCELED);
+        finish();
+    }
+
 }
